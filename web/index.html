@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Mafia - A game or is it?</title>
+  </head>
+  <body>
+    <!-- Nav class
+      This class is used for the navigation bar.
+      All websites usually have a navigation bar to allow users to go back or different pages on a website.
+    -->
+    <nav class="navbar navbar-dark bg-dark">
+      <!-- a class
+      a class is used whenever something has to be hyperlinked. It could be used to go to a page on the same website or go to another page too. -->
+      <a class="navbar-brand" href="/starter.html">Mafia</a>
+    </nav>
+
+    <!-- Jumbotron class
+    This class is used for calling extra attention to featured content or information.  -->
+    <div class="jumbotron">
+      <!-- Container class should be used to group components together.
+      It will automatically place the contents in the center of the page -->
+      <div class="container">
+        <h1 class="display-4">Welcome to Mafia</h1>
+        <hr>
+        <p class="lead">Assign mafia roles to players</p>
+      </div>
+    </div>
+
+    <div id="quiz" class="container">
+      <form>
+        <div class="form-group">
+          <label>Player names</label>
+          <textarea class="form-control" id="players"  aria-label="With textarea" required></textarea>
+          <small class="form-text text-muted">Use comma to seperate player names</small>
+        </div>
+
+        <div class="form-group">
+          <label>Number of mafias</label>
+          <input class="form-control" id="mafias" required>
+        </div>
+
+        <div class="form-group">
+          <label>Number of detectives</label>
+          <input class="form-control" id="detectives" required>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="eval(
+          document.getElementById('players').value,
+          document.getElementById('mafias').value,
+          document.getElementById('detectives').value
+        )">Assign roles</button>
+      </form>
+    </div>
+
+    <div id="results" style="display: none" >
+      <div id="answerKeyContainer" class="container">
+        <h4 class="display-10">Mafias</h4>
+          <div id="answerKeyTemplate">
+
+            <div class="card" style="margin-bottom: 1rem;">
+               <ul class="list-group list-group-flush">
+                {{#each results.Mafia}}
+                  <li class="list-group-item">{{ this }}</li>
+                {{/each}}
+                </ul>
+            </div>
+          </div>
+
+        <h4 class="display-10">Detectives</h4>
+             <div id="answerKeyTemplate">
+
+            <div class="card" style="margin-bottom: 1rem;">
+               <ul class="list-group list-group-flush">
+                {{#each results.Detective}}
+                  <li class="list-group-item">{{ this }}</li>
+                {{/each}}
+                </ul>
+            </div>
+          </div>
+
+          <h4 class="display-10">Villagers</h4>
+              <div id="answerKeyTemplate">
+
+            <div class="card" style="margin-bottom: 1rem;">
+               <ul class="list-group list-group-flush">
+                {{#each results.Villager}}
+                  <li class="list-group-item">{{ this }}</li>
+                {{/each}}
+                </ul>
+            </div>
+          </div>
+
+        <button type="button" class="btn btn-primary" onclick="location.reload();">Restart</button>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="bundle.js"></script>
+    <script>
+     function eval(...answers) {
+        var results = assignPlayers(...answers);
+
+        console.log(results);
+        // show score and answer key
+        var template = Handlebars.compile(document.getElementById("results").innerHTML);
+
+        // execute the compiled template and assign it to the div
+        document.getElementById("results").innerHTML = template({ results: results });
+
+        // show the results
+        document.getElementById("results").style="display: block";
+        // hide quiz
+        document.getElementById("quiz").style="display: none";
+      }
+    </script>
+  </body>
+</html>
