@@ -34,14 +34,16 @@
       <form>
         <div class="form-group">
           <label>Player names</label>
-          <textarea class="form-control" id="players"  aria-label="With textarea" required>Murtaza Laxmi,
-Huzefa Lokhand,
-Fatema Huzefa,
-Fatema Aliasgar,
-Mustafa Hussain,
-Abdul Hussain,
-Mustafa Devli,
-Fatema Hyderi</textarea>
+          <div id="players">
+            <div class="card" style="margin-bottom: 1rem;">
+              <ul class="list-group list-group-flush">
+                {{#each players}}
+                {{#if isPlaying}}
+                  <li class="list-group-item"> {{name}} </li>
+                {{/if}}
+                {{/each}}
+                </ul>
+          </div>
           <small class="form-text text-muted">Use comma to seperate player names</small>
         </div>
 
@@ -56,50 +58,25 @@ Fatema Hyderi</textarea>
         </div>
 
         <button type="button" class="btn btn-primary" onclick="eval(
-          document.getElementById('players').value,
           document.getElementById('mafias').value,
           document.getElementById('detectives').value
         )">Assign roles</button>
       </form>
     </div>
+    </div>
 
     <div id="results" style="display: none" >
       <div id="answerKeyContainer" class="container">
-        <h4 class="display-10">Mafias</h4>
-          <div id="answerKeyTemplate">
-
-            <div class="card" style="margin-bottom: 1rem;">
-               <ul class="list-group list-group-flush">
-                {{#each results.Mafia}}
-                  <li class="list-group-item">{{ this }}</li>
+        {{#each results}}
+          <h4 class="display-10">{{@key}}</h4>
+          <div class="card" style="margin-bottom: 1rem;">
+              <ul class="list-group list-group-flush">
+                {{#each this}}
+                  <li class="list-group-item">{{ name }} <a href="https://api.whatsapp.com/send?phone={{mobile}}&text=You are a {{@../key}} in this round! Enjoy!" target="_blank" class="btn btn-primary" style="float: right">Send WhatsApp</a></li>
                 {{/each}}
                 </ul>
-            </div>
           </div>
-
-        <h4 class="display-10">Detectives</h4>
-             <div id="answerKeyTemplate">
-
-            <div class="card" style="margin-bottom: 1rem;">
-               <ul class="list-group list-group-flush">
-                {{#each results.Detective}}
-                  <li class="list-group-item">{{ this }}</li>
-                {{/each}}
-                </ul>
-            </div>
-          </div>
-
-          <h4 class="display-10">Villagers</h4>
-              <div id="answerKeyTemplate">
-
-            <div class="card" style="margin-bottom: 1rem;">
-               <ul class="list-group list-group-flush">
-                {{#each results.Villager}}
-                  <li class="list-group-item">{{ this }}</li>
-                {{/each}}
-                </ul>
-            </div>
-          </div>
+        {{/each}}
 
         <button type="button" class="btn btn-primary" onclick="location.reload();">Restart</button>
       </div>
@@ -111,8 +88,14 @@ Fatema Hyderi</textarea>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <script src="bundle.js"></script>
     <script>
+      // show score and answer key
+      var playerTemplate = Handlebars.compile(document.getElementById("players").innerHTML);
+
+      // execute the compiled template and assign it to the div
+      document.getElementById("players").innerHTML = playerTemplate({ players });
+
      function eval(...answers) {
-        var results = assignPlayers(...answers);
+        var results = assignPlayers(players, ...answers);
 
         console.log(results);
         // show score and answer key
