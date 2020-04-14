@@ -30,7 +30,7 @@ let Mafia = require('./lib/mafia'),
     {
       name: 'Hussain Attari',
       mobile: '918939265649',
-      isPlaying: true
+      isPlaying: false
     },
     {
       name: 'Hussain Madras',
@@ -60,7 +60,7 @@ let Mafia = require('./lib/mafia'),
     {
       name: 'Munira Hussain',
       mobile: '919096335332',
-      isPlaying: true
+      isPlaying: false
     },
     {
       name: 'Batul Nadir',
@@ -81,6 +81,16 @@ let Mafia = require('./lib/mafia'),
       name: 'Jameela Mufaddal',
       mobile: '918056030235',
       isPlaying: false
+    },
+    {
+      name: 'Hawwa Mohammed',
+      mobile: '971566577618',
+      isPlaying: false
+    },
+    {
+      name: 'Murtaza Laxmi',
+      mobile: '918056157786',
+      isPlaying: true
     }
   ];
 

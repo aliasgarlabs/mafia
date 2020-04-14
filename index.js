@@ -84,6 +84,11 @@ let Mafia = require('./lib/mafia'),
       name: 'Hawwa Mohammed',
       mobile: '971566577618',
       isPlaying: false
+    },
+    {
+      name: 'Murtaza Laxmi',
+      mobile: '918056157786',
+      isPlaying: true
     }
   ];
 
