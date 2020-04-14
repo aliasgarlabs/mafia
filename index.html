@@ -38,13 +38,12 @@
             <div class="card" style="margin-bottom: 1rem;">
               <ul class="list-group list-group-flush">
                 {{#each players}}
-                {{#if isPlaying}}
-                  <li class="list-group-item"> {{name}} </li>
-                {{/if}}
+                  {{#if isPlaying}}
+                    <li class="list-group-item"> {{name}} </li>
+                  {{/if}}
                 {{/each}}
                 </ul>
           </div>
-          <small class="form-text text-muted">Use comma to seperate player names</small>
         </div>
 
         <div class="form-group">
